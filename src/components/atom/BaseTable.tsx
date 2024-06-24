@@ -1,15 +1,20 @@
 import React from 'react';
 import {Table, TableContainer, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
+import {PaginationProps} from "@/components/Pagenation";
 
-type BaseTableProps = {
-  data: Array<any>
-  headers: Array<{key: string, label: string}>;
+export type BaseTableProps = PaginationProps & {
   indexOfFirst: number;
   indexOfLast: number;
 }
 
 const BaseTable = (props: BaseTableProps) => {
-  const {data, headers, indexOfFirst, indexOfLast} = props;
+  const {data, headers, indexOfFirst, indexOfLast, onClickRow} = props;
+
+  const onClickTable = (func: any, TData: any) => {
+    if(!func) return;
+    func(TData)
+    return;
+  }
 
   return (
     <TableContainer w={'100%'}>
@@ -21,7 +26,7 @@ const BaseTable = (props: BaseTableProps) => {
         </Thead>
         <Tbody>
           {data.slice(indexOfFirst, indexOfLast + 1).map((records, index) =>
-            <Tr key={index}>
+            <Tr _hover={{backgroundColor: onClickRow ? 'var(--chakra-colors-gray-50)' : 'transparent'}} cursor={onClickRow ? 'pointer' : 'default'} onClick={() => onClickTable(onClickRow, records)} key={index}>
               {headers.map((header, index) => <Td key={index} minW={'100px'} verticalAlign={'middle'} whiteSpace={'break-spaces'}>{records[header.key]}</Td>)}
             </Tr>)}
         </Tbody>

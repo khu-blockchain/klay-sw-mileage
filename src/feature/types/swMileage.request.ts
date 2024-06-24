@@ -9,7 +9,12 @@ type getSwMileageList = {
   }
 }
 
+type getSwMileageById = {
+  params: {swMileageId: number}
+}
+
 export type {
   registerSwMileage as registerSwMileageRequest,
-  getSwMileageList as getSwMileageListRequest
+  getSwMileageList as getSwMileageListRequest,
+  getSwMileageById as getSwMileageByIdRequest
 }

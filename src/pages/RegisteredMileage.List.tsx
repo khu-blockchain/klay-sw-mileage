@@ -10,9 +10,11 @@ import {parseToFormattedDate} from "@/utils/dayjs.utils";
 import {ACTIVITY_CATEGORIES} from "@/assets/constants/activityField.data";
 import {reduceAddress} from "@/utils/web3.utils";
 import StatusLabel from "@/components/StatusLabel";
+import {useNavigate} from "react-router-dom";
 
 const RegisteredMileageList = () => {
 
+  const navigate = useNavigate();
   const [swMileageList, setSwMileageList] = useState<Array<SwMileage>>([])
   const {data, isFetching} = useGetSwMileageList({})
 
@@ -48,6 +50,7 @@ const RegisteredMileageList = () => {
   const tableData = (data: Array<SwMileage>) => {
     return data.map(swMileage => {
       return {
+        id                      : swMileage.sw_mileage_id,
         created_at              : <Text>{parseToFormattedDate(swMileage.created_at)}</Text>,
         academic_field           : <Text>{ACTIVITY_CATEGORIES[swMileage.academic_field]}</Text>,
         extracurricular_activity: <Text>{swMileage.extracurricular_activity}</Text>,
@@ -57,12 +60,16 @@ const RegisteredMileageList = () => {
     })
   }
 
+  const onClickRegisteredMileage = (mileageId: number) => {
+    navigate(`${mileageId}`)
+  }
+
   return (
     <Wrapper direction={'column'}>
       <FormWrapper title={'내 마일리지 신청 내역'}>
         {isFetching ?
           <LoadingBox height={'100px'}/> :
-          <PaginationTable headers={header} data={tableData(swMileageList)}/>
+          <PaginationTable onClickRow={(data) => onClickRegisteredMileage(data.id)} headers={header} data={tableData(swMileageList)}/>
         }
       </FormWrapper>
     </Wrapper>

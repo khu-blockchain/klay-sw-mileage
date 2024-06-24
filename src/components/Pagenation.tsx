@@ -24,12 +24,13 @@ const PaginationItem = ({ children, label, active, onClick, rel }: PaginationIte
   )
 }
 
-type PaginationProps = {
+export type PaginationProps = {
   data: Array<any>;
   headers: Array<{key: string, label: string}>;
+  onClickRow?: (arg: any) => any;
 }
 
-export const PaginationTable = ({data, headers}: PaginationProps) => {
+export const PaginationTable = ({data, headers, onClickRow}: PaginationProps) => {
   const LIMIT = 15;
 
   const { records, pageNumbers, setActivePage } = usePagination({
@@ -50,6 +51,7 @@ export const PaginationTable = ({data, headers}: PaginationProps) => {
   return (
     <div className='pagination-table'>
       <BaseTable
+        onClickRow={onClickRow}
         data={data}
         headers={headers}
         indexOfFirst={records.indexOfFirst}

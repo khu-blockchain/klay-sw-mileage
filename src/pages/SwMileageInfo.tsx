@@ -1,12 +1,88 @@
-import React from 'react';
-import {UnorderedList, ListItem, Table, Tr, Th, Thead, Tbody, Td,} from '@chakra-ui/react';
+import React, {useEffect, useMemo, useState} from 'react';
+import {
+  UnorderedList,
+  ListItem,
+  Table,
+  Tr,
+  Th,
+  Thead,
+  Tbody,
+  Td,
+  Flex,
+  HStack,
+  Grid,
+  Text,
+  Button, Divider, Highlight, Badge
+} from '@chakra-ui/react';
 import FormWrapper from "@/components/FormWrapper";
 import Wrapper from "@/components/Wrapper";
+import {getToday, parseToFormattedDate} from "@/utils/dayjs.utils";
+import useSwMileageTokenStore from "@/store/global/useSwMileageTokenStore";
+import LVStack from "@/components/atom/LVStack";
+import TokenImage from '@/components/atom/TokenImage';
+import DataField from '@/components/DataField';
+import useStudentStore from "@/store/global/useStudentStore";
+import {caver} from "@/App";
 
 
 const SwMileageInfo = () => {
+  const {swMileageToken, kip7} = useSwMileageTokenStore(state => state)
+  const {getStudent} = useStudentStore(state => state)
+
+  const [myMileageBalance, setMyMileageeBalance] = useState<number>(0)
+
+  const getMyMileageBalance = async () => {
+    if(!kip7 || !swMileageToken) return;
+    const result = await kip7.balanceOf(getStudent().wallet_address)
+    setMyMileageeBalance(Number(caver.utils.convertFromPeb(result, 'KLAY')))
+  }
+
+  useEffect(() => {
+    getMyMileageBalance()
+  }, [kip7, swMileageToken])
+
   return (
     <Wrapper direction={'column'}>
+      <FormWrapper
+        title={'SW Mileage 토큰'}
+        description={`현재 사용중인 SW Mileage 토큰과 내 마일리지 점수( 마일리지 토큰 보유 수량 )입니다.`}
+      >
+        {!swMileageToken ?
+          <Flex>
+            활성화 상태인 토큰이 존재하지 않습니다.
+          </Flex> :
+          <LVStack w={'100%'} spacing={'30px'}>
+            <HStack align={'center'} spacing={'10px'}>
+              <Badge fontSize={'16px'} padding={'6px 10px'} borderRadius={'4px'} colorScheme='blue'>내 마일리지</Badge>
+              <Text fontSize={'20px'}
+                    fontWeight={600}>{myMileageBalance.toLocaleString()}점</Text>
+            </HStack>
+            <HStack align={'center'} spacing={'10px'}>
+              <TokenImage
+                src={swMileageToken.sw_mileage_token_image_url}
+                p={'6px'}
+                w={'60px'}
+                h={'60px'}
+              />
+              <Text color={'var(--chakra-colors-gray-500)'} fontSize={'20px'}
+                    fontWeight={600}>{swMileageToken.sw_mileage_token_symbol}</Text>
+            </HStack>
+
+            <Grid w={'100%'} templateColumns={'repeat(2, 1fr)'} rowGap={'30px'} columnGap={'40px'}>
+              <DataField label={'이름'}>
+                <Text>{swMileageToken.sw_mileage_token_name}</Text>
+              </DataField>
+              <DataField label={'설명'}>
+                <Text w={'360px'} whiteSpace={'pre-wrap'}>{swMileageToken.description}</Text>
+              </DataField>
+              <DataField label={'컨트랙트 주소'}>
+                <Button variant={'link'} colorScheme={'facebook'}>{swMileageToken.contract_address}</Button>
+              </DataField>
+            </Grid>
+          </LVStack>
+        }
+      </FormWrapper>
+      <Divider borderColor={'var(--chakra-colors-gray-300)'}/>
       <FormWrapper title={'마일리지 제도'}>
         <UnorderedList spacing={'6px'}>
           <ListItem>다양한 전공관련 비교과 활동 참여 독려를 위해 활동별 마일리지 점수를 부여</ListItem>

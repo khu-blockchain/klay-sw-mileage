@@ -11,11 +11,11 @@ import LoadingBox from "@/components/LoadingBox";
 import MainLayout from "@/components/layout/MainLayout";
 import RegisterMileage from "@/pages/RegisterMileage";
 import SwMileageInfo from "@/pages/SwMileageInfo";
-import RegisteredMileageList from "@/pages/RegisteredMileageList";
+import RegisteredMileageList from "@/pages/RegisteredMileage.List";
 import {useRefresh} from "@/feature/queries/auth.queries";
 import {useGetActivityField} from "@/feature/queries/activityField.queries";
 import {useGetSwMileageTokenList} from "@/feature/queries/swMileageTokens.queries";
-import RegisteredMileageDetail from "@/pages/RegisteredMileageDetail";
+import RegisteredMileageDetail from "@/pages/RegisteredMileage.Detail";
 import Profile from "@/pages/Profile";
 
 const RootRouter = () => {
@@ -89,7 +89,7 @@ const RootRouter = () => {
           <Route path={'/register'} element={<RegisterMileage/>}/>
           <Route path={'/list/*'}>
             <Route index element={<RegisteredMileageList/>}/>
-            <Route path={'detail'} element={<RegisteredMileageDetail/>}/>
+            <Route path={':id'} element={<RegisteredMileageDetail/>}/>
           </Route>
           <Route path={'/profile'} element={<Profile/>}/>
 

@@ -1,8 +1,12 @@
 import {useMutation, useQuery} from "@tanstack/react-query";
 import {Mutation, Query} from "@/feature";
-import {registerSwMileageRequest} from "@/feature/types/swMileage.request";
-import {getSwMileageListResponse, registerSwMileageResponse} from "@/feature/types/swMileage.response";
-import {getSwMileageListAPI, registerSwMileageAPI} from "@/feature/api/swMileage.api";
+import {getSwMileageByIdRequest, registerSwMileageRequest} from "@/feature/types/swMileage.request";
+import {
+  getSwMileageByIdResponse,
+  getSwMileageListResponse,
+  registerSwMileageResponse
+} from "@/feature/types/swMileage.response";
+import {getSwMileageByIdAPI, getSwMileageListAPI, registerSwMileageAPI} from "@/feature/api/swMileage.api";
 import {Empty} from "@/store/types";
 import useStudentStore from "@/store/global/useStudentStore";
 
@@ -32,8 +36,18 @@ const useGetSwMileageList: Query<Empty, getSwMileageListResponse> = (args) => {
   })
 }
 
+const useGetSwMileageById: Query<getSwMileageByIdRequest, getSwMileageByIdResponse> = (args) => {
+  return useQuery({
+    queryKey: ['get-sw-mileage-by-id'],
+    queryFn: async() => await getSwMileageByIdAPI(args),
+    initialData: null,
+    enabled: args.params.swMileageId !== null
+  })
+}
+
 
 export {
   useRegisterSwMileage,
-  useGetSwMileageList
+  useGetSwMileageList,
+  useGetSwMileageById
 }

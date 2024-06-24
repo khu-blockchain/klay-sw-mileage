@@ -1,7 +1,11 @@
 import {SwMileageServer} from "@/feature/serverInstance";
 import {API} from "@/feature";
-import {getSwMileageListRequest, registerSwMileageRequest} from "../types/swMileage.request";
-import {getSwMileageListResponse, registerSwMileageResponse} from "@/feature/types/swMileage.response";
+import {getSwMileageByIdRequest, getSwMileageListRequest, registerSwMileageRequest} from "../types/swMileage.request";
+import {
+  getSwMileageByIdResponse,
+  getSwMileageListResponse,
+  registerSwMileageResponse
+} from "@/feature/types/swMileage.response";
 import {makeQuery} from "@/feature/utils";
 
 
@@ -23,8 +27,19 @@ const getSwMileageList: API<getSwMileageListRequest, getSwMileageListResponse> =
   }
 }
 
+const getSwMileageById: API<getSwMileageByIdRequest, getSwMileageByIdResponse> = async(request) => {
+  try{
+    const result = await SwMileageServer.get(`${request.params.swMileageId}`)
+    return result.data;
+  }catch (e) {
+    throw e
+  }
+}
+
+
 
 export {
   registerSwMileage as registerSwMileageAPI,
   getSwMileageList as getSwMileageListAPI,
+  getSwMileageById as getSwMileageByIdAPI,
 }

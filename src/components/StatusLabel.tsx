@@ -24,7 +24,7 @@ const StatusLabel = ({status}:{status: number}) => {
     }
   }, [status])
   return (
-    <Badge variant={statusStyle.variant}>
+    <Badge fontSize={'14px'} p={'4px 6px'} variant={statusStyle.variant}>
       {statusStyle.label}
     </Badge>
   );

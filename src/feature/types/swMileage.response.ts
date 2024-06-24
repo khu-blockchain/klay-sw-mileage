@@ -7,7 +7,11 @@ type registerSwMileage = {
 
 type getSwMileageList = Array<SwMileage>
 
+
+type getSwMileageById = SwMileage
+
 export type {
   registerSwMileage as registerSwMileageResponse,
   getSwMileageList as getSwMileageListResponse,
+  getSwMileageById as getSwMileageByIdResponse,
 }

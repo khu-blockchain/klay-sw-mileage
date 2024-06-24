@@ -11,9 +11,7 @@ import {
   FormControl,
   Grid,
   HStack,
-  Input,
   Text,
-  Select,
   useToast
 } from "@chakra-ui/react";
 import LVStack from "@/components/atom/LVStack";
@@ -25,7 +23,6 @@ import BasicTextarea from "@/components/atom/BasicTextarea";
 import useSwMileageTokenStore from "@/store/global/useSwMileageTokenStore";
 import BigNumber from "bignumber.js";
 import {caver, provider} from "@/App";
-import BasicLargeButton from "@/components/atom/BasicLargeButton";
 import BasicInput from "@/components/atom/BasicInput";
 import WithLabel from "@/components/WithLabel";
 import {useDropzone} from "react-dropzone";
