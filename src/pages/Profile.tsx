@@ -15,10 +15,8 @@ import {
 import BasicInput from "@/components/atom/BasicInput";
 import FormWrapper from "@/components/FormWrapper";
 import useStudentStore from "@/store/global/useStudentStore";
-import BasicLargeButton from "@/components/atom/BasicLargeButton";
 import {BANK_CODE} from "@/assets/constants/bankCode.data";
 import BasicSelect from "@/components/atom/BasicSelect";
-import KaiKasConnectButton from "@/components/atom/KaiKasConnecButtont";
 import {useUpdateStudentInfo} from "@/feature/queries/student.queries";
 import useIsAble from "@/hooks/useAble";
 import {caver} from "@/App";
@@ -28,13 +26,10 @@ const Profile = () => {
   const toast = useToast();
   const {getStudent, setStudentInfo} = useStudentStore(state => state);
 
-  const [walletAddress, setWalletAddress] = useState(() => getStudent().wallet_address);
   const [bankCode, setBankCode] = useState(() => getStudent().bank_code)
   const [accountNumber, setAccountNumber] = useState(() => getStudent().bank_account_number)
 
   const isAble = useIsAble([
-    walletAddress !== '',
-    caver.utils.isAddress(walletAddress),
     bankCode !== '',
     accountNumber !== ''
   ])
@@ -65,9 +60,8 @@ const Profile = () => {
     await mutate({
       params: {studentId: getStudent().student_id},
       body: {
-        walletAddress,
-        bankCode,
-        bankAccountNumber: accountNumber
+        ...(bankCode && {bankCode}),
+        ...(accountNumber && {bankAccountNumber: accountNumber}),
       }
     })
   }
@@ -98,20 +92,21 @@ const Profile = () => {
         <Divider borderColor={'var(--chakra-colors-gray-300)'}/>
         <FormWrapper
           title={'Klaytn 지갑 및 계좌 정보'}
-          description={'수정하기 버튼을 눌러 지갑 및 계좌정보를 수정할 수 있습니다.'}
+          description={'수정하기 버튼을 눌러 계좌 정보를 수정할 수 있습니다.'}
         >
           {!isEditable ?
             <>
               <Grid gap={'24px'} w={'100%'} templateColumns={'repeat(1, 1fr)'}>
+                <WithRowLabel label={'Klaytn 지갑 주소'}>
+                  {getStudent().wallet_address}
+                </WithRowLabel>
                 <WithRowLabel label={'계좌 은행'}>
                   {BANK_CODE[getStudent().bank_code] ?? '-'}
                 </WithRowLabel>
                 <WithRowLabel label={'계좌 번호'}>
                   {getStudent().bank_account_number}
                 </WithRowLabel>
-                <WithRowLabel label={'Klaytn 지갑 주소'}>
-                  {getStudent().wallet_address}
-                </WithRowLabel>
+
               </Grid>
               <Flex w={'100%'} justify={'flex-end'}>
                 <BasicButton onClick={() => setIsEditable(true)}>수정</BasicButton>
@@ -119,6 +114,9 @@ const Profile = () => {
             </> :
             <>
               <Grid gap={'24px'} w={'100%'} templateColumns={'repeat(1, 1fr)'}>
+                <WithRowLabel label={'Klaytn 지갑 주소'}>
+                  {getStudent().wallet_address}
+                </WithRowLabel>
                 <WithRowLabel label={'계좌 은행'}>
                   <BasicSelect w={'200px'} value={bankCode} placeholder='은행 선택'
                                onChange={(e) => setBankCode(e.target.value)}>
@@ -130,12 +128,7 @@ const Profile = () => {
                 <WithRowLabel label={'계좌 번호'}>
                   <BasicInput w={'500px'} value={accountNumber} onChange={(e) => setAccountNumber(e.target.value)}/>
                 </WithRowLabel>
-                <WithRowLabel label={'Klaytn 지갑 주소'}>
-                  <HStack>
-                    <BasicInput w={'500px'} value={walletAddress} onChange={(e) => setWalletAddress(e.target.value)}/>
-                    <KaiKasConnectButton w={'280px'} setAddress={setWalletAddress}/>
-                  </HStack>
-                </WithRowLabel>
+
               </Grid>
               <Flex w={'100%'} justify={'flex-end'} gap={'10px'}>
                 <Button onClick={() => setIsEditable(false)}>취소</Button>

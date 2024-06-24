@@ -21,9 +21,8 @@ type getStudentInfoById = {
 type updateStudentInfo = {
   params: {studentId: string};
   body: {
-    walletAddress: string;
-    bankAccountNumber: string;
-    bankCode: string;
+    bankAccountNumber?: string;
+    bankCode?: string;
   }
 }
 

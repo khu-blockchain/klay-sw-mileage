@@ -7,11 +7,11 @@ const StatusLabel = ({status}:{status: number}) => {
     switch (status){
       case 1: return {
         variant: 'created',
-        label: '승인 대기'
+        label: '심사 대기'
       }
       case 2: return {
         variant: 'approved',
-        label: '승인'
+        label: '지급 완료'
       }
       case 3: return {
         variant: 'denied',
