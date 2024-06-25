@@ -8,7 +8,7 @@ import RootRouter from "@/RootRouter";
 const queryClient = new QueryClient();
 
 export const provider = window.klaytn;
-export const caver = new Caver(provider);
+export const caver = new Caver(provider ?? process.env.REACT_APP_API_PROVIDER_END_POINT);
 
 function App() {
   return (

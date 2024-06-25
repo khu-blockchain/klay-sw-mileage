@@ -2,10 +2,16 @@ import {useMutation, useQuery} from "@tanstack/react-query";
 import {Mutation, Query} from "@/feature";
 import {approveSwMileageTokenRequest, getSwMileageTokenListRequest} from "@/feature/types/swMileageTokens.request";
 import {approveSwMileageTokenResponse, getSwMileageTokenListResponse} from "@/feature/types/swMileageTokens.response";
-import {approveSwMileageTokenAPI, getSwMileageTokenListAPI} from "@/feature/api/swMileageTokens.api";
+import {
+  approveSwMileageTokenAPI,
+  getApproveSwMileageTokenDataAPI,
+  getSwMileageTokenListAPI
+} from "@/feature/api/swMileageTokens.api";
 import useStudentStore from "@/store/global/useStudentStore";
 import {caver} from "@/App";
 import useSwMileageTokenStore from "@/store/global/useSwMileageTokenStore";
+import {Empty} from "@/store/types";
+import {getApproveSwMileageTokenDataResponse} from "@/feature/types/swMileage.response";
 
 const useGetSwMileageTokenList: Query<getSwMileageTokenListRequest, getSwMileageTokenListResponse> = (args) => {
   const  {getStudent} = useStudentStore(state => state)
@@ -38,8 +44,24 @@ const useApproval: Mutation<approveSwMileageTokenRequest, approveSwMileageTokenR
   })
 }
 
+const useGetApproveData: Query<Empty, getApproveSwMileageTokenDataResponse> = () => {
+  const {getStudent} = useStudentStore(state => state)
+  const {setApproveData} = useSwMileageTokenStore(state => state)
+
+  return useQuery({
+    queryKey   : ['get-approve-data'],
+    queryFn    : async () => {
+      const result = await getApproveSwMileageTokenDataAPI({});
+      setApproveData(result)
+      return result
+    },
+    initialData: null,
+    enabled    : getStudent().student_id !== ''
+  })
+}
 
 export {
   useGetSwMileageTokenList,
-  useApproval
+  useApproval,
+  useGetApproveData
 }

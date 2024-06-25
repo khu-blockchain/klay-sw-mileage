@@ -14,10 +14,9 @@ import SwMileageInfo from "@/pages/SwMileageInfo";
 import RegisteredMileageList from "@/pages/RegisteredMileage.List";
 import {useRefresh} from "@/feature/queries/auth.queries";
 import {useGetActivityField} from "@/feature/queries/activityField.queries";
-import {useGetSwMileageTokenList} from "@/feature/queries/swMileageTokens.queries";
+import {useGetApproveData, useGetSwMileageTokenList} from "@/feature/queries/swMileageTokens.queries";
 import RegisteredMileageDetail from "@/pages/RegisteredMileage.Detail";
 import Profile from "@/pages/Profile";
-import {useGetApproveData} from "@/feature/queries/swMileage.queries";
 
 const RootRouter = () => {
   const navigate = useNavigate()

@@ -2,20 +2,13 @@ import {useMutation, useQuery} from "@tanstack/react-query";
 import {Mutation, Query} from "@/feature";
 import {getSwMileageByIdRequest, registerSwMileageRequest} from "@/feature/types/swMileage.request";
 import {
-  getApproveSwMileageTokenDataResponse,
   getSwMileageByIdResponse,
   getSwMileageListResponse,
   registerSwMileageResponse
 } from "@/feature/types/swMileage.response";
-import {
-  getApproveSwMileageTokenDataAPI,
-  getSwMileageByIdAPI,
-  getSwMileageListAPI,
-  registerSwMileageAPI
-} from "@/feature/api/swMileage.api";
+import {getSwMileageByIdAPI, getSwMileageListAPI, registerSwMileageAPI} from "@/feature/api/swMileage.api";
 import {Empty} from "@/store/types";
 import useStudentStore from "@/store/global/useStudentStore";
-import useSwMileageTokenStore from "@/store/global/useSwMileageTokenStore";
 
 const useRegisterSwMileage: Mutation<registerSwMileageRequest, registerSwMileageResponse> = (args) => {
   const {onSuccessFn, onErrorFn} = args
@@ -52,25 +45,9 @@ const useGetSwMileageById: Query<getSwMileageByIdRequest, getSwMileageByIdRespon
   })
 }
 
-const useGetApproveData: Query<Empty, getApproveSwMileageTokenDataResponse> = () => {
-  const  {getStudent} = useStudentStore(state => state)
-  const {setApproveData} = useSwMileageTokenStore(state => state)
-
-  return useQuery({
-    queryKey: ['get-approve-data'],
-    queryFn: async() => {
-      const result =  await getApproveSwMileageTokenDataAPI({});
-      setApproveData(result)
-    },
-    initialData: null,
-    enabled: getStudent().student_id !== ''
-  })
-}
-
 
 export {
   useRegisterSwMileage,
   useGetSwMileageList,
-  useGetSwMileageById,
-  useGetApproveData
+  useGetSwMileageById
 }
