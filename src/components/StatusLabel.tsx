@@ -11,7 +11,7 @@ const StatusLabel = ({status}:{status: number}) => {
       }
       case 2: return {
         variant: 'approved',
-        label: '지급 완료'
+        label: '승인'
       }
       case 3: return {
         variant: 'denied',
