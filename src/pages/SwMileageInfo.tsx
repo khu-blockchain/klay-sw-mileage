@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   UnorderedList,
   ListItem,
@@ -12,29 +12,39 @@ import {
   HStack,
   Grid,
   Text,
-  Button, Divider, Highlight, Badge
+  Button, Divider, Badge, useToast
 } from '@chakra-ui/react';
 import FormWrapper from "@/components/FormWrapper";
 import Wrapper from "@/components/Wrapper";
-import {getToday, parseToFormattedDate} from "@/utils/dayjs.utils";
 import useSwMileageTokenStore from "@/store/global/useSwMileageTokenStore";
 import LVStack from "@/components/atom/LVStack";
 import TokenImage from '@/components/atom/TokenImage';
 import DataField from '@/components/DataField';
 import useStudentStore from "@/store/global/useStudentStore";
 import {caver} from "@/App";
+import CopyToClipboard from 'react-copy-to-clipboard';
 
 
 const SwMileageInfo = () => {
+  const toast = useToast()
   const {swMileageToken, kip7} = useSwMileageTokenStore(state => state)
   const {getStudent} = useStudentStore(state => state)
 
-  const [myMileageBalance, setMyMileageeBalance] = useState<number>(0)
+  const [myMileageBalance, setMyMileageBalance] = useState<number>(0)
 
   const getMyMileageBalance = async () => {
     if(!kip7 || !swMileageToken) return;
     const result = await kip7.balanceOf(getStudent().wallet_address)
-    setMyMileageeBalance(Number(caver.utils.convertFromPeb(result, 'KLAY')))
+    setMyMileageBalance(Number(caver.utils.convertFromPeb(result, 'KLAY')))
+  }
+
+  const onCopyCA = () => {
+    return toast({
+      title     : `컨트랙트 주소가 복사되었습니다.`,
+      status    : 'success',
+      isClosable: true,
+      position  : "top",
+    })
   }
 
   useEffect(() => {
@@ -76,7 +86,9 @@ const SwMileageInfo = () => {
                 <Text w={'360px'} whiteSpace={'pre-wrap'}>{swMileageToken.description}</Text>
               </DataField>
               <DataField label={'컨트랙트 주소'}>
-                <Button variant={'link'} colorScheme={'facebook'}>{swMileageToken.contract_address}</Button>
+                <CopyToClipboard text={swMileageToken.contract_address} onCopy={() => onCopyCA()}>
+                  <Button variant={'link'} colorScheme={'facebook'}>{swMileageToken.contract_address}</Button>
+                </CopyToClipboard>,
               </DataField>
             </Grid>
           </LVStack>

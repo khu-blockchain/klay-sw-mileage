@@ -106,9 +106,8 @@ const RegisterMileage = () => {
     }
     try {
       const result = await kip7.allowance(getStudent().wallet_address, adminaddress);
-      const minimumAllowance = new BigNumber(Number(MINIMUM_ALLOWANCE_AMOUNT))
       // allowance 최소 기준값 10000000
-      if(minimumAllowance.isGreaterThanOrEqualTo(result)) {
+      if(Number(caver.utils.convertFromPeb(result, 'KLAY')) < MINIMUM_ALLOWANCE_AMOUNT) {
         setIsNeedToApproval(true)
         return;
       }
