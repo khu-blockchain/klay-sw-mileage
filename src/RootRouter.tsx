@@ -17,6 +17,7 @@ import {useGetActivityField} from "@/feature/queries/activityField.queries";
 import {useGetSwMileageTokenList} from "@/feature/queries/swMileageTokens.queries";
 import RegisteredMileageDetail from "@/pages/RegisteredMileage.Detail";
 import Profile from "@/pages/Profile";
+import {useGetApproveData} from "@/feature/queries/swMileage.queries";
 
 const RootRouter = () => {
   const navigate = useNavigate()
@@ -115,96 +116,9 @@ const Auth = () => {
   const {student} = useStudentStore((state) => state)
   useGetActivityField({});
   useGetSwMileageTokenList({})
+  useGetApproveData({})
   if(student.student.student_id === '') {
     return <Navigate to={'/sign-in'}/>
   }
   return <Outlet/>
 }
-
-// const Test = () => {
-//
-//   console.log(provider)
-//   console.log(caver)
-//   // caver.klay.accounts.wallet.add(
-//   //   adminPK,
-//   //   adminaddress
-//   // );
-//
-//   caver.wallet.isExisted(adminaddress)
-//
-//
-//   const onConnectKaikas = async() => {
-//     const result = await provider.enable();
-//     caver.klay.accounts.wallet.add(
-//       adminPK,
-//       adminaddress
-//     );
-//     console.log(result)
-//   }
-//
-//   const onApproval = async () => {
-//     const sender = provider.selectedAddress;
-//     console.log(sender)
-//     caver.wallet.getKeyring(adminaddress)
-//     const kip7 = caver.kct.kip7.create(ca)
-//     // const burnFrom = kip7.methods.burnFrom('0x2ef9EdEDDD79Ab2df19Bd9BFC99Da75af3890e9f', caver.utils.toPeb('3', 'KLAY')).encodeABI()
-//     // const result = await provider.request({
-//     //   method: 'klay_sendTransaction',
-//     //   params: [
-//     //     {
-//     //       from: sender,
-//     //       to: ca,
-//     //       data: burnFrom,
-//     //       gas: '1000000',
-//     //       value: '0',
-//     //     }
-//     //   ]
-//     // })
-//     // const {rawTransaction: senderRawTransaction} = (await caver.klay.sendTransaction(
-//     //   {
-//     //     from: sender,
-//     //     to: ca,
-//     //     data: burnFrom,
-//     //     gas: 1000000,
-//     //     value: '0',
-//     //   }
-//     // )) as any
-//     // const result = await kip7.allowance(sender, adminaddress)
-//     // console.log(caver.utils.convertFromPeb(result, 'KLAY'))
-//     const approveData = kip7.methods.approve(adminaddress, caver.utils.toPeb('1000', 'KLAY')).encodeABI()
-//     console.log(approveData)
-//     const {rawTransaction: senderRawTransaction} = (await caver.klay.signTransaction(
-//       {
-//         type: "FEE_DELEGATED_SMART_CONTRACT_EXECUTION",
-//         from: sender,
-//         to: ca,
-//         data: approveData,
-//         gas: 1000000,
-//         value: '0',
-//       }
-//     )) as any
-//
-//
-//     console.log(caver)
-//
-//     const { transactionHash: txHash } = await caver.klay.sendTransaction({
-//       senderRawTransaction: senderRawTransaction,
-//       feePayer: adminaddress,
-//     });
-//     console.log(txHash)
-//     console.log(senderRawTransaction)
-//     console.log(approveData)
-//
-//   }
-//
-//   return (
-//    <>
-//      <Button onClick={() => onConnectKaikas()}>
-//        연결
-//      </Button>
-//      <Button onClick={() => onApproval()}>
-//        서명
-//      </Button>
-//    </>
-//   )
-// }

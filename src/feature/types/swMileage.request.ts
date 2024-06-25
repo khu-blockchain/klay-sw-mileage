@@ -13,8 +13,11 @@ type getSwMileageById = {
   params: {swMileageId: number}
 }
 
+type getApproveSwMileageTokenData = {}
+
 export type {
   registerSwMileage as registerSwMileageRequest,
   getSwMileageList as getSwMileageListRequest,
-  getSwMileageById as getSwMileageByIdRequest
+  getSwMileageById as getSwMileageByIdRequest,
+  getApproveSwMileageTokenData as getApproveSwMileageTokenDataRequest
 }

@@ -29,8 +29,6 @@ const RegisteredMileageDetail = () => {
     }
   }, [data])
 
-  console.log(swMileageDetail?.sw_mileage_files)
-
   return (
     <Wrapper direction={'column'}>
       <FormWrapper title={'내 마일리지 신청 내역 상세'}>

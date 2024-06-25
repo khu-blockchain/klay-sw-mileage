@@ -7,7 +7,6 @@ export const downloadFile = async (url: string, name: string) => {
                const url = window.URL.createObjectURL(new Blob([response.data]));
                const a = document.createElement("a");
                a.href = url;
-               console.log(response)
                a.download = name;
                document.body.appendChild(a);
                a.click();

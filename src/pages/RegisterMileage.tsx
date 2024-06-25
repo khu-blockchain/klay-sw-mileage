@@ -21,13 +21,12 @@ import LoadingBox from "@/components/LoadingBox";
 import {ACTIVITY_CATEGORIES} from "@/assets/constants/activityField.data";
 import BasicTextarea from "@/components/atom/BasicTextarea";
 import useSwMileageTokenStore from "@/store/global/useSwMileageTokenStore";
-import BigNumber from "bignumber.js";
 import {caver, provider} from "@/App";
 import BasicInput from "@/components/atom/BasicInput";
 import WithLabel from "@/components/WithLabel";
 import {useDropzone} from "react-dropzone";
 import {CloudUpload, X} from 'lucide-react';
-import {MINIMUM_ALLOWANCE_AMOUNT, REGISTER_ALLOWANCE_AMOUNT} from "@/assets/constants/config.data";
+import {MINIMUM_ALLOWANCE_AMOUNT} from "@/assets/constants/config.data";
 import useIsAble from "@/hooks/useAble";
 import FormWrapper from "@/components/FormWrapper";
 import {useApproval} from "@/feature/queries/swMileageTokens.queries";
@@ -36,13 +35,10 @@ import BasicSelect from "@/components/atom/BasicSelect";
 import BasicButton from "@/components/atom/BasicButton";
 import {useNavigate} from "react-router-dom";
 
-const adminaddress = '0x5775fF7AFAF1EA237Cfe75B152F39333C66Fa4A7'
-
-
 const RegisterMileage = () => {
   const {getStudent} = useStudentStore(state => state);
   const {activityFields, getActivityCategories} = useActivityFieldStore(state => state);
-  const {kip7, swMileageToken} = useSwMileageTokenStore(state => state);
+  const {kip7, swMileageToken, approveData} = useSwMileageTokenStore(state => state);
 
   const toast = useToast();
   const navigate = useNavigate();
@@ -101,11 +97,11 @@ const RegisterMileage = () => {
   //length가 0이 아닌데 선택한게 없을 경우 예외처리
 
   const checkAllowance = async () => {
-    if(!kip7?._address) {
+    if(!kip7?._address || !approveData?.spenderAddress) {
       return;
     }
     try {
-      const result = await kip7.allowance(getStudent().wallet_address, adminaddress);
+      const result = await kip7.allowance(getStudent().wallet_address, approveData.spenderAddress);
       // allowance 최소 기준값 10000000
       if(Number(caver.utils.convertFromPeb(result, 'KLAY')) < MINIMUM_ALLOWANCE_AMOUNT) {
         setIsNeedToApproval(true)
@@ -118,9 +114,9 @@ const RegisterMileage = () => {
   }
 
   const signApproval = async () => {
-    if(!kip7?._address || !swMileageToken) return;
-    const estimateGas = await kip7.methods.approve(adminaddress, caver.utils.toPeb(REGISTER_ALLOWANCE_AMOUNT, 'KLAY')).estimateGas({from: getStudent().wallet_address})
-    const approveData = kip7.methods.approve(adminaddress, caver.utils.toPeb(REGISTER_ALLOWANCE_AMOUNT, 'KLAY')).encodeABI()
+    if(!kip7?._address || !swMileageToken || !approveData) return;
+    const estimateGas = await kip7.methods.approve(approveData.spenderAddress, caver.utils.toPeb(approveData.approveAmount, 'KLAY')).estimateGas({from: getStudent().wallet_address})
+    const encodeApproveData = kip7.methods.approve(approveData.spenderAddress, caver.utils.toPeb(approveData.approveAmount, 'KLAY')).encodeABI()
 
     try {
       const {rawTransaction} = await provider.request({
@@ -131,7 +127,7 @@ const RegisterMileage = () => {
           to   : swMileageToken.contract_address,
           gas  : caver.utils.toHex(estimateGas * 2),
           value: '0',
-          data : approveData,
+          data : encodeApproveData,
         }]
       })
       await approvalMutate({
