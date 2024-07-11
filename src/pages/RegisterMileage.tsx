@@ -102,6 +102,7 @@ const RegisterMileage = () => {
     }
     try {
       const result = await kip7.allowance(getStudent().wallet_address, approveData.spenderAddress);
+      console.log(Number(caver.utils.convertFromPeb(result, 'KLAY')));
       // allowance 최소 기준값 10000000
       if(Number(caver.utils.convertFromPeb(result, 'KLAY')) < MINIMUM_ALLOWANCE_AMOUNT) {
         setIsNeedToApproval(true)
@@ -115,8 +116,8 @@ const RegisterMileage = () => {
 
   const signApproval = async () => {
     if(!kip7?._address || !swMileageToken || !approveData) return;
-    const estimateGas = await kip7.methods.approve(approveData.spenderAddress, caver.utils.toPeb(approveData.approveAmount, 'KLAY')).estimateGas({from: getStudent().wallet_address})
-    const encodeApproveData = kip7.methods.approve(approveData.spenderAddress, caver.utils.toPeb(approveData.approveAmount, 'KLAY')).encodeABI()
+    const estimateGas = await kip7.methods.approve(approveData.spenderAddress, approveData.approveAmount).estimateGas({from: getStudent().wallet_address})
+    const encodeApproveData = kip7.methods.approve(approveData.spenderAddress, approveData.approveAmount).encodeABI()
 
     try {
       const {rawTransaction} = await provider.request({
@@ -130,6 +131,7 @@ const RegisterMileage = () => {
           data : encodeApproveData,
         }]
       })
+      console.log(rawTransaction)
       await approvalMutate({
         params: {swMileageTokenId: swMileageToken.sw_mileage_token_id},
         body  : {

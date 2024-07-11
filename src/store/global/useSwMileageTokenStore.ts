@@ -7,8 +7,8 @@ interface SwMileageTokenState {
   kip7: Nullable<KIP7>,
   setSwMileageToken: (token: SwMileageToken) => void
   setKip7: (kip7: KIP7) => void;
-  approveData: Nullable<{spenderAddress: string; approveAmount: number;}>
-  setApproveData: (data: {spenderAddress: string; approveAmount: number;}) => void;
+  approveData: Nullable<{spenderAddress: string; approveAmount: string;}>
+  setApproveData: (data: {spenderAddress: string; approveAmount: string;}) => void;
 
 }
 

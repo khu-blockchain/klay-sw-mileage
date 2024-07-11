@@ -259,6 +259,7 @@ const Step2 = ({setStep}: {setStep: Dispatch<SetStateAction<number>>}) => {
           <UnorderedList spacing={'6px'} color={'var(--chakra-colors-gray-500)'} fontSize={'12px'} fontWeight={400}>
             <ListItem>지갑 연결 버튼을 눌러 Kaikas를 연결하거나, 본인의 지갑주소를 입력해 주세요.</ListItem>
             <ListItem>Kaikas가 열리지 않는다면 Kaikas 아이콘을 클릭하여 주소를 복사해주세요.</ListItem>
+            <ListItem fontWeight={600} color={'var(--main-color)'}>*주의* 회원가입시 등록되는 지갑 주소는 변경할 수 없습니다. 지갑 주소를 확인하세요.</ListItem>
           </UnorderedList>
           <KaiKasConnectButton setAddress={(value: string) => setState('walletAddress', value)}/>
         </LVStack>

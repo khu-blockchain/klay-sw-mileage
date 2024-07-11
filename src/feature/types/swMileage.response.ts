@@ -12,7 +12,7 @@ type getSwMileageById = SwMileage
 
 type getApproveSwMileageTokenData = {
   spenderAddress: string;
-  approveAmount: number;
+  approveAmount: string;
 }
 
 export type {
