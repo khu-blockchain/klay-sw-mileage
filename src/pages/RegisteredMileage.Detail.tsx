@@ -5,7 +5,7 @@ import {useParams} from "react-router-dom";
 import {useGetSwMileageById} from "@/feature/queries/swMileage.queries";
 import {Nullable, SwMileage} from "@/store/types";
 import LoadingBox from "@/components/LoadingBox";
-import {Button, Divider, Flex, Grid, ListItem, Text, UnorderedList} from "@chakra-ui/react";
+import {Alert, AlertIcon, Button, Divider, Flex, Grid, ListItem, Text, UnorderedList} from "@chakra-ui/react";
 import DataField from "@/components/DataField";
 import useActivityFieldStore from "@/store/global/useActivityFieldStore";
 import {ACTIVITY_CATEGORIES} from "@/assets/constants/activityField.data";
@@ -29,6 +29,8 @@ const RegisteredMileageDetail = () => {
     }
   }, [data])
 
+  console.log(swMileageDetail?.comment)
+
   return (
     <Wrapper direction={'column'}>
       <FormWrapper title={'내 마일리지 신청 내역 상세'}>
@@ -41,6 +43,12 @@ const RegisteredMileageDetail = () => {
         }
         {(!isFetching && swMileageDetail) &&
           <>
+            {swMileageDetail.status === 3 &&
+              <Alert status='error' borderRadius={'6px'}>
+                <AlertIcon />
+                {swMileageDetail.comment}
+              </Alert>
+            }
             <Grid gap={'20px'} w={'100%'} templateColumns={'repeat(2, 1fr)'}>
               <DataField label={'승인 상태'}>
                 <StatusLabel status={swMileageDetail.status}/>

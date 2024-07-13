@@ -1,46 +1,60 @@
-# Getting Started with Create React App
+# KHU SW Mileage with Klaytn (KIP-7)
+2024년 1학기 블록체인 과목의 기말 대체 프로젝트인 "Klaytn - KIP7을 활용한 경희대학교 SW 마일리지" 프로젝트 학생 서비스 프로토타입 입니다.
+- 프론트엔드: 컴퓨터 공학과 18학번 정의왕 (euiwang0323@gmail.com)
+- 서버: 컴퓨터 공학과 18학번 김성환 (wjswp12347@khu.ac.kr)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+최종 보고서: [SW 마일리지 토큰 서비스 최종 보고서.pdf](..%2F..%2F..%2F..%2FDownloads%2F2be55229-56e9-49f4-aa53-e60ce77c6028_Export-c3abea33-01a9-4419-a76e-7a7a88a703d1%2FSW%20%EB%A7%88%EC%9D%BC%EB%A6%AC%EC%A7%80%20%ED%86%A0%ED%81%B0%20%EC%84%9C%EB%B9%84%EC%8A%A4%20%EC%B5%9C%EC%A2%85%20%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf)
 
-## Available Scripts
+## Directory Architecture
+프로젝트를 구성하는 디렉토리는 아래와 같은 구성으로 작성되었습니다.
 
-In the project directory, you can run:
+### assets
+프로젝트에 사용되는 에셋들을 관리하는 폴더입니다. 폰트, 이미지 파일 및 상수값이 존재합니다.
 
-### `npm start`
+### components
+프로젝트에 사용되는 단위 컴포넌트를 관리하는 폴더입니다. 이 프로젝트는 Chakra-UI 라이브러리를 이용하여 UI를 구성하였습니다. 자세한
+내용은 [Chakra UI 공식 홈페이지](https://v2.chakra-ui.com/getting-started)를 참고하세요.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### feature
+프로젝트에서 사용하는 API와 React-Query로 구성된 query, mutation Hook을 관리하는 폴더입니다.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### global
+Global Type으로 선언된 내용들이 작성된 파일이 존재하는 폴더입니다.
 
-### `npm test`
+### hooks
+프로젝트 내부에서 사용되는 Hook을 관리하는 폴더입니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### pages
+프로젝트를 구성하는 단위 페이지 컴포넌트를 관리하는 폴더입니다. 해당 폴더에는 "페이지" 파일만 존재합니다.
 
-### `npm run build`
+### store
+전역으로 사용되는 상태와 로컬로 사용되는 상태가 관리되는 폴더입니다. 로컬로 관리되는 상태일 경우, 컴포넌트 내부 코드가 지나치게 길어질 경우만 분리시켰습니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### styles
+프로젝트에서 사용되는 스타일 관련 파일들을 관리하는 폴더입니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Setup
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 1. **Clone the repository**
+```shell
+    git clone https://github.com/JeongEuiWang/klay-sw-mileage.git
+```
+### 2. **Install Dependencies**
+```shell
+    npm install
+```
 
-### `npm run eject`
+### 3. **ENV Setting**
+- env.development: 개발 환경에서 사용하는 환경 변수입니다.
+- env.production: 프로덕션 환경에서 사용하는 환경 변수입니다.
+```dotenv
+REACT_APP_SERVER_URL=API 호출에 사용될 서버 요청 경로입니다.
+REACT_APP_API_VERSION=v1/
+REACT_APP_API_KLAYSCOPE_URL=Token Holder 페이지로 이동하기 위한 KlaytnScope URL입니다.
+REACT_APP_API_PROVIDER_END_POINT=Caver를 통한 Node와의 연결을 위한 EndPoint입니다.
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 4. **Running**
+```shell
+    npm run start
+```

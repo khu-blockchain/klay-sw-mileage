@@ -13,6 +13,7 @@ type SwMileage = {
   status: number // 1: 생성, 2: 승인, 3: 반려
   created_at: string;
   updated_at: string;
+  comment: string;
   sw_mileage_files: Array<SwMileageFile>
 }
 
