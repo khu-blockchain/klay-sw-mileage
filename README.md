@@ -3,7 +3,7 @@
 - 프론트엔드: 컴퓨터 공학과 18학번 정의왕 (euiwang0323@gmail.com)
 - 서버: 컴퓨터 공학과 18학번 김성환 (wjswp12347@khu.ac.kr)
 
-최종 보고서: [SW 마일리지 토큰 서비스 최종 보고서.pdf](..%2F..%2F..%2F..%2FDownloads%2F2be55229-56e9-49f4-aa53-e60ce77c6028_Export-c3abea33-01a9-4419-a76e-7a7a88a703d1%2FSW%20%EB%A7%88%EC%9D%BC%EB%A6%AC%EC%A7%80%20%ED%86%A0%ED%81%B0%20%EC%84%9C%EB%B9%84%EC%8A%A4%20%EC%B5%9C%EC%A2%85%20%EB%B3%B4%EA%B3%A0%EC%84%9C.pdf)
+최종 보고서: [SW 마일리지 토큰 서비스 최종 보고서.pdf](./SW%20마일리지%20토큰%20서비스%20최종%20보고서.pdf)
 
 ## Directory Architecture
 프로젝트를 구성하는 디렉토리는 아래와 같은 구성으로 작성되었습니다.
