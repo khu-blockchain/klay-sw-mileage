@@ -18,13 +18,14 @@
     "@types/react-dom": "^18.3.0",
     "axios": "^1.7.2",
     "bignumber.js": "^9.1.2",
-    "caver-js": "^1.11.0",
+    "caver-js": "^1.12.2",
     "dayjs": "^1.11.11",
     "framer-motion": "^11.2.10",
     "lucide-react": "^0.395.0",
     "md5": "^2.3.0",
     "pagination-react-js": "^2.0.1",
     "react": "^18.3.1",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.3.1",
     "react-dropzone": "^14.2.3",
     "react-router-dom": "^6.23.1",
@@ -38,7 +39,7 @@
     "zustand": "^4.5.2"
   },
   "scripts": {
-    "start": "react-app-rewired start",
+    "start": "GENERATE_SOURCEMAP=false react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -62,6 +63,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-copy-to-clipboard": "^5.0.7",
     "assert": "^2.1.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",

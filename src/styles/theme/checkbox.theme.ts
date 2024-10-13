@@ -11,8 +11,8 @@ const baseStyle = definePartsStyle({
     padding: 2,
     borderRadius: 4, // change the border radius of the control
     _checked: {
-      borderColor: 'var(--kaikas-color)',
-      backgroundColor: 'var(--kaikas-color)',
+      borderColor: 'var(--kaia-color)',
+      backgroundColor: 'var(--kaia-color)',
       color: '#ffffff'
     }
   },

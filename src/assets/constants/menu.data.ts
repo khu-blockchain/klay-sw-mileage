@@ -38,7 +38,7 @@ const MENUS: Array<MenuItem> = [
   {
     label: '마일리지 랭킹',
     type: 'link',
-    path: `${process.env.REACT_APP_API_KLAYSCOPE_URL}`,
+    path: `/`,
     icon : SquareArrowOutUpRight
   }
 ]

@@ -61,7 +61,7 @@ const RegisterMileage = () => {
     },
     onErrorFn  : (error: any) => toast({
       title      : `${error.response.data.code}:: 문제가 발생했습니다.`,
-      description: 'Kaikas에서 요청한 트랜잭션을 취소하고 다시 권한 등록을 진행해주세요.',
+      description: 'Kaia에서 요청한 트랜잭션을 취소하고 다시 권한 등록을 진행해주세요.',
       status     : 'error',
       isClosable : true,
       position   : "top",
@@ -80,7 +80,7 @@ const RegisterMileage = () => {
     },
     onErrorFn  : (error: any) => toast({
       title      : `${error.response.data.code}:: 문제가 발생했습니다.`,
-      description: 'Kaikas에서 요청한 트랜잭션을 취소하고 다시 권한 등록을 진행해주세요.',
+      description: 'Kaia에서 요청한 트랜잭션을 취소하고 다시 권한 등록을 진행해주세요.',
       status     : 'error',
       isClosable : true,
       position   : "top",

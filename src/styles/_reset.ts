@@ -15,7 +15,7 @@ export const GlobalStyle = css`
     min-width: 1440px;
     line-height: 1.3 !important;
     --main-color: #a40f16;
-    --kaikas-color: #3366FF;
+    --kaia-color: #3366FF;
     --side-bar-color: #363740;
     --bg-color: #F7F8FC;
     --border-color: #DFE0EB;

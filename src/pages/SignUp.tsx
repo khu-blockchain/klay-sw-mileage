@@ -15,7 +15,7 @@ import {
   Select, UnorderedList, ListItem, Divider, InputGroup, InputLeftElement, InputRightElement
 } from "@chakra-ui/react";
 import useIsAble from "@/hooks/useAble";
-import KaiKasConnectButton from "@/components/atom/KaiKasConnecButtont";
+import KaiaConnectButton from "@/components/atom/KaiaConnecButtont";
 import {BANK_CODE} from "@/assets/constants/bankCode.data";
 import md5 from "md5";
 import {useNavigate} from "react-router-dom";
@@ -52,11 +52,11 @@ const SignUpDescription = () => {
     <LVStack spacing={'6px'}>
       <Text whiteSpace={'pre-wrap'} color={'var(--chakra-colors-gray-500)'} fontSize={'14px'}
             fontWeight={400}>
-        {'회원가입 진행 전, Klay 계정을 소유하지 않은 학생은 크롬 웹스토어를 통해\nKaikas를 설치해주세요.'}
+        {'회원가입 진행 전, Klay 계정을 소유하지 않은 학생은 크롬 웹스토어를 통해\nKaia를 설치해주세요.'}
       </Text>
       <Button size={'sm'}
-              onClick={() => window.open('https://chromewebstore.google.com/detail/kaikas/jblndlipeogpafnldhgmapagcccfchpi')}
-              color={'#3366FF'} variant={'link'}>Kaikas 다운로드</Button>
+              onClick={() => window.open('https://chromewebstore.google.com/detail/kaia-wallet/jblndlipeogpafnldhgmapagcccfchpi?hl=ko')}
+              color={'#3366FF'} variant={'link'}>Kaia 다운로드</Button>
     </LVStack>
   )
 }
@@ -257,11 +257,11 @@ const Step2 = ({setStep}: {setStep: Dispatch<SetStateAction<number>>}) => {
                  placeholder={'0x로 시작하는 주소를 입력하세요.'}
                  type={'text'}/>
           <UnorderedList spacing={'6px'} color={'var(--chakra-colors-gray-500)'} fontSize={'12px'} fontWeight={400}>
-            <ListItem>지갑 연결 버튼을 눌러 Kaikas를 연결하거나, 본인의 지갑주소를 입력해 주세요.</ListItem>
-            <ListItem>Kaikas가 열리지 않는다면 Kaikas 아이콘을 클릭하여 주소를 복사해주세요.</ListItem>
+            <ListItem>지갑 연결 버튼을 눌러 Kaia를 연결하거나, 본인의 지갑주소를 입력해 주세요.</ListItem>
+            <ListItem>Kaia가 열리지 않는다면 Kaia 아이콘을 클릭하여 주소를 복사해주세요.</ListItem>
             <ListItem fontWeight={600} color={'var(--main-color)'}>*주의* 회원가입시 등록되는 지갑 주소는 변경할 수 없습니다. 지갑 주소를 확인하세요.</ListItem>
           </UnorderedList>
-          <KaiKasConnectButton setAddress={(value: string) => setState('walletAddress', value)}/>
+          <KaiaConnectButton setAddress={(value: string) => setState('walletAddress', value)}/>
         </LVStack>
       </FormControl>
       <Flex align={'flex-start'} w={'100%'}>
