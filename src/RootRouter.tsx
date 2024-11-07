@@ -17,6 +17,7 @@ import {useGetActivityField} from "@/feature/queries/activityField.queries";
 import {useGetApproveData, useGetSwMileageTokenList} from "@/feature/queries/swMileageTokens.queries";
 import RegisteredMileageDetail from "@/pages/RegisteredMileage.Detail";
 import Profile from "@/pages/Profile";
+import Rank from "./pages/Rank";
 
 const RootRouter = () => {
   const navigate = useNavigate()
@@ -49,7 +50,6 @@ const RootRouter = () => {
     removeLocalStorageData('refresh-token');
     removeLocalStorageData('refresh-expires');
     setIsLoading(false)
-    navigate('/sign-in');
   }
 
   const hasAccess = async () => {
@@ -92,7 +92,7 @@ const RootRouter = () => {
             <Route path={':id'} element={<RegisteredMileageDetail/>}/>
           </Route>
           <Route path={'/profile'} element={<Profile/>}/>
-
+          <Route path={'/rank'} element={<Rank/>}/>
         </Route>
       </Route>
 
@@ -112,12 +112,12 @@ const Init = () => {
 }
 
 const Auth = () => {
-  const {student} = useStudentStore((state) => state)
-  useGetActivityField({});
-  useGetSwMileageTokenList({})
-  useGetApproveData({})
-  if(student.student.student_id === '') {
-    return <Navigate to={'/sign-in'}/>
-  }
+  // const {student} = useStudentStore((state) => state)
+  // useGetActivityField({});
+  // useGetSwMileageTokenList({})
+  // useGetApproveData({})
+  // if(student.student.student_id === '') {
+  //   return <Navigate to={'/sign-in'}/>
+  // }
   return <Outlet/>
 }

@@ -2,7 +2,7 @@ import {Info, List, LucideIcon, PencilLine, UserCog, SquareArrowOutUpRight} from
 
 type MenuItem = {
   label: string
-  type: 'route' | 'link',
+  type: 'route',
   path: string
   icon: LucideIcon
 }
@@ -37,8 +37,8 @@ const MENUS: Array<MenuItem> = [
   },
   {
     label: '마일리지 랭킹',
-    type: 'link',
-    path: `/`,
+    type: 'route',
+    path: 'rank',
     icon : SquareArrowOutUpRight
   }
 ]

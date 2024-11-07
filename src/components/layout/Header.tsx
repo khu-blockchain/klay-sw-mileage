@@ -15,6 +15,7 @@ const Header = () => {
       case 'register': return 'SW 마일리지 신청'
       case 'list': return '신청 내역'
       case 'profile': return '내 정보'
+      case 'rank': return '마일리지 랭킹'
       default : return ''
     }
   }, [location])
