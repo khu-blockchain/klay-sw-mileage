@@ -50,6 +50,7 @@ const RootRouter = () => {
     removeLocalStorageData('refresh-token');
     removeLocalStorageData('refresh-expires');
     setIsLoading(false)
+    //navigate('sign-in')
   }
 
   const hasAccess = async () => {
