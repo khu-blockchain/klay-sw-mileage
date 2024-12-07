@@ -213,6 +213,8 @@ const Step2 = ({setStep}: {setStep: Dispatch<SetStateAction<number>>}) => {
   })
 
   const onSignUp = async () => {
+    console.log('signup');
+    
     await mutate({
       body: {
         studentId                       : state.studentId,

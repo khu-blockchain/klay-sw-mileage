@@ -35,12 +35,6 @@ const MENUS: Array<MenuItem> = [
     path: 'profile',
     icon : UserCog
   },
-  {
-    label: '마일리지 랭킹',
-    type: 'route',
-    path: 'rank',
-    icon : SquareArrowOutUpRight
-  }
 ]
 
 export {
